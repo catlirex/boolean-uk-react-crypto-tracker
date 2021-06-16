@@ -1,15 +1,17 @@
 import { useState } from "react";
+import HeaderLogin from "./components/HeaderLogin";
+import HeaderNoLogin from "./components/HeaderNoLogin";
 
 import MainSection from "./components/MainSection";
 import NewsFeedList from "./components/NewsFeedList";
 import SideList from "./components/SideList";
 
 function App() {
-  // This piece of state keeps the id from the selected coin to be displayed in the MainDetail component
+
   const [selectedCripto, setSelectedCripto] = useState(null);
   const [cryptoList, setCryptoList] = useState([])
-  // This function gives you whether a coin has been selected or not
-  // You will need this for the SideListItem component
+  const [loginUser, setLoginUser] = useState(null)
+ 
   function isSelectedCripto(id) {
     return selectedCripto === id;
   }
@@ -17,6 +19,13 @@ function App() {
   return (
     /* These (<> </>) are called React Fragments, and allow us to return more than one top element */
     <>
+    {(loginUser)
+    ?<HeaderLogin
+    loginUser={loginUser}
+    setLoginUser={setLoginUser}/> 
+    : <HeaderNoLogin
+    setLoginUser={setLoginUser}/>}
+    
       <aside className="side-list">
         <SideList 
         cryptoList={cryptoList}

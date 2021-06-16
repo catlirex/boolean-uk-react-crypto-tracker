@@ -35,10 +35,13 @@ button:hover {
 #root {
   height: 100vh;
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template:
+    "header header" auto
+    "side main" 1fr / auto 1fr;
 }
 
 .side-list {
+  grid-area: side;
   padding: 2rem 4rem;
   overflow-y: auto;
   scrollbar-width: thin;
@@ -57,6 +60,7 @@ button:hover {
 }
 
 .main-detail {
+  grid-area: main;
   display: grid;
   grid-template-rows: 3fr 1fr;
   padding: 2rem;
@@ -121,4 +125,28 @@ button:hover {
   font-size: 1.1rem;
   scroll-snap-align: center;
   background-color: whitesmoke;
+}
+
+header {
+  grid-area: header;
+  padding: 20px;
+  display: grid;
+  grid-auto-flow: column;
+  place-items: center;
+  grid-gap: 20px;
+}
+
+.sign-up-container {
+  position: relative;
+}
+
+.sign-up-form {
+  display: none;
+  grid-gap: 5px;
+  position: absolute;
+  left: 120px;
+  top: 0px;
+  width: 200px;
+  background-color: aquamarine;
+  padding: 20px;
 }
