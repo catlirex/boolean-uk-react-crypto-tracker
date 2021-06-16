@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import {CRIPTO_LIST} from "../constants"
 import SideListItem from "./SideListItem";
 
-function SideList({isSelectedCripto, setSelectedCripto, cryptoList, setCryptoList}){
+function SideList({isSelectedCripto, setSelectedCripto, cryptoList, setCryptoList, setSelectedMainView}){
     
     useEffect(()=>{
         fetch(CRIPTO_LIST)
@@ -27,6 +27,7 @@ function SideList({isSelectedCripto, setSelectedCripto, cryptoList, setCryptoLis
     return (
         cryptoList.map((item)=>(
         <SideListItem
+        setSelectedMainView={setSelectedMainView}
         key={item.id}
         item={item}
         setSelectedCripto={setSelectedCripto}

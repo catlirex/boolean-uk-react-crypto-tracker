@@ -11,6 +11,7 @@ function App() {
   const [selectedCripto, setSelectedCripto] = useState(null);
   const [cryptoList, setCryptoList] = useState([])
   const [loginUser, setLoginUser] = useState(null)
+  const [selectedMainView, setSelectedMainView] = useState(null)
  
   function isSelectedCripto(id) {
     return selectedCripto === id;
@@ -21,6 +22,7 @@ function App() {
     <>
     {(loginUser)
     ?<HeaderLogin
+    setSelectedMainView={setSelectedMainView}
     loginUser={loginUser}
     setLoginUser={setLoginUser}/> 
     : <HeaderNoLogin
@@ -28,14 +30,16 @@ function App() {
     
       <aside className="side-list">
         <SideList 
+        setSelectedMainView={setSelectedMainView}
         cryptoList={cryptoList}
         setCryptoList={setCryptoList}
         isSelectedCripto={isSelectedCripto}
         setSelectedCripto={setSelectedCripto}/>
       </aside>
       <main className="main-detail">
-        {selectedCripto
+        {selectedMainView==="coinDetail"
           ? <MainSection
+          loginUser={loginUser}
           selectedCripto={selectedCripto}
           cryptoList={cryptoList}
           setCryptoList={setCryptoList}

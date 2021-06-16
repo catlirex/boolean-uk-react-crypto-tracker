@@ -1,13 +1,16 @@
 export default function SideListItem({
   isSelectedCripto,
   setSelectedCripto,
-  item: { id, name }
+  item: { id, name },
+  setSelectedMainView
 }) {
   return (
     <li key={id}>
       <button
         className={isSelectedCripto(id) ? "selected" : ""}
-        onClick={() => setSelectedCripto(id)}
+        onClick={() => {
+          setSelectedMainView("coinDetail")
+          setSelectedCripto(id)}}
       >
         {name}
       </button>

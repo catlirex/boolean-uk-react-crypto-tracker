@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 
 import UpdateSection from "./UpdateSection"
+import TradingForm from "./TradingForm"
 
 function currentTime() {
     return Math.round(Date.now() / 1000);
@@ -13,7 +14,7 @@ function convertToSeconds(dateValue) {
       : dateValue;
   }  
 
-function MainSection ({selectedCripto, cryptoList, setCryptoList, setSelectedCripto}){
+function MainSection ({loginUser, selectedCripto, cryptoList, setCryptoList, setSelectedCripto}){
     
     let selectedCriptoDetail = cryptoList.find(coin=> selectedCripto === coin.id)
     const [updateTime, setUpdateTime] = useState(0)
@@ -50,6 +51,11 @@ function MainSection ({selectedCripto, cryptoList, setCryptoList, setSelectedCri
             <div className="main-detail__price">
                 <p>£{selectedCriptoDetail.currentPrice}</p>
                 <p>Updated {updateTime} seconds ago</p>
+
+            <TradingForm
+            selectedCripto={selectedCripto}
+            loginUser={loginUser}
+            currentPrice={selectedCriptoDetail.currentPrice}/>
             </div>
             </section>
 

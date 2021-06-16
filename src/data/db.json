@@ -11,14 +11,16 @@
           "quantity": 1,
           "buyInPrice": 27500
         }
-      ]
+      ],
+      "pastTransactions":[]
     },
     {
       "id": "cat",
       "name": "Cath",
       "password": "111",
       "accountBalance": 1000000,
-      "holdingCoins": []
+      "holdingCoins": [],
+      "pastTransactions":[]
     }
   ]
 }

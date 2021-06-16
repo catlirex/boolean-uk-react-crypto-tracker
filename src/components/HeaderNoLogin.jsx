@@ -25,7 +25,8 @@ function HeaderNoLogin ({setLoginUser}){
             name: document.forms["sign-up"]["name"].value,
             password: document.forms["sign-up"]["password"].value,
             accountBalance: Number(document.forms["sign-up"]["balance"].value),
-            holdingCoins:[]
+            holdingCoins:[],
+            pastTransactions:[]
           }
 
           fetch(`http://localhost:4000/user/`,{
