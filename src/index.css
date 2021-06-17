@@ -171,3 +171,20 @@ header {
   width: 50px;
   border: none;
 }
+
+.my-coin li {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 10px;
+  padding: 5px;
+
+  border-bottom: 1px solid rgb(115, 216, 130);
+}
+
+.my-coin span {
+  display: inline-block;
+}
+
+.my-coin h1 {
+  padding-bottom: 20px;
+}

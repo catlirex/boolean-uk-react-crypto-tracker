@@ -3,6 +3,7 @@ import HeaderLogin from "./components/HeaderLogin";
 import HeaderNoLogin from "./components/HeaderNoLogin";
 
 import MainSection from "./components/MainSection";
+import MyCoins from "./components/MyCoins";
 import NewsFeedList from "./components/NewsFeedList";
 import SideList from "./components/SideList";
 
@@ -46,7 +47,17 @@ function App() {
           setCryptoList={setCryptoList}
           setSelectedCripto={setSelectedCripto}
           />
-          : "Select a coin bro!"}
+          : null}
+
+          {selectedMainView==="myCoins"? 
+          <MyCoins
+          setSelectedMainView={setSelectedMainView}
+          setSelectedCripto={setSelectedCripto}
+          cryptoList={cryptoList}
+          loginUser={loginUser}/>:null}
+
+          {selectedMainView===null? 
+          <h1>Signup for free to trade~ Select a coin to view price</h1>:null}
 
          <NewsFeedList/>
       </main>

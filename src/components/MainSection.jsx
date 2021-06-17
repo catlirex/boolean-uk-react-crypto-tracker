@@ -23,7 +23,6 @@ function MainSection ({loginUser, selectedCripto, cryptoList, setCryptoList, set
 
 
     useEffect(()=>{
-      console.log('MainDetail is mounting')
       const intervalId = setInterval(() => setCurrentTime(getCurrentTime()), 1000)
       return () => {
         console.log('MainDetail is unmounting!')
