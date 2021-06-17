@@ -21,7 +21,7 @@ function TradingForm({currentPrice, loginUser, selectedCripto, setLoginUser}){
     const [tradeQuantity, setTradeQuantity] = useState(0)
     
   
-    function trading(){
+    function trading(e){
         let userCurrentStock=loginUser.holdingCoins.find(coin=> coin.id===selectedCripto)
 
         if(tradeAction==="buy" && loginUser.accountBalance-(tradeQuantity*currentPrice) < 0) return alert("Please Topup account before trading.")
@@ -41,7 +41,7 @@ function TradingForm({currentPrice, loginUser, selectedCripto, setLoginUser}){
             patchUpdateUser(loginUser.id, updatedUser)
             .then(data=> {
                 setLoginUser(data)
-                document.forms["trade"].reset()
+                e.target.reset()
                 setTradeQuantity(0)
                 setTradeAction(null)
             })
@@ -56,7 +56,7 @@ function TradingForm({currentPrice, loginUser, selectedCripto, setLoginUser}){
             patchUpdateUser(loginUser.id, updatedUser)
             .then(data=> {
                 setLoginUser(data)
-                document.forms["trade"].reset()
+                e.target.reset()
                 setTradeQuantity(0)
                 setTradeAction(null)
             })
@@ -68,7 +68,7 @@ function TradingForm({currentPrice, loginUser, selectedCripto, setLoginUser}){
                 patchUpdateUser(loginUser.id, updatedUser)
                 .then(data=> {
                     setLoginUser(data)
-                    document.forms["trade"].reset()
+                    e.target.reset()
                     setTradeQuantity(0)
                     setTradeAction(null)
                 })
@@ -80,7 +80,7 @@ function TradingForm({currentPrice, loginUser, selectedCripto, setLoginUser}){
             patchUpdateUser(loginUser.id, updatedUser)
             .then(data=> {
                 setLoginUser(data)
-                document.forms["trade"].reset()
+                e.target.reset()
                 setTradeQuantity(0)
                 setTradeAction(null)
             })
@@ -91,7 +91,7 @@ function TradingForm({currentPrice, loginUser, selectedCripto, setLoginUser}){
     return(
         <form id="trade" onSubmit={(e)=> {
             e.preventDefault()
-            loginUser? trading() : alert("Please login")
+            loginUser? trading(e) : alert("Please login")
             
         }}>
                   <h2>Trade Now</h2>

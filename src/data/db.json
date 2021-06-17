@@ -17,7 +17,7 @@
       "id": "cat",
       "name": "Cath",
       "password": "111",
-      "accountBalance": 998567.7073,
+      "accountBalance": 942171.7073,
       "holdingCoins": [
         {
           "id": "tether",
@@ -28,6 +28,11 @@
           "id": "binancecoin",
           "quantity": 5,
           "avgBuyInPrice": 251.21
+        },
+        {
+          "id": "bitcoin",
+          "quantity": 2,
+          "avgBuyInPrice": 28198
         }
       ]
     },

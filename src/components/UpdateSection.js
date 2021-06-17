@@ -2,7 +2,8 @@ import { useEffect, useState } from "react"
 import { getCriptoUpdateUrl } from "../constants"
 
 function UpdateSection({selectedCripto, cryptoList, setCryptoList, setSelectedCripto}){
-    const [nextFetch, setNextFetch] = useState(10)
+    const secondToUpdate = 10
+    const [nextFetch, setNextFetch] = useState(secondToUpdate)
     const [intervalId, setIntervalId] = useState(null)
     const [autoUpdate, setAutoUpdate] =useState(true)
     const down = () => {
@@ -18,20 +19,24 @@ function UpdateSection({selectedCripto, cryptoList, setCryptoList, setSelectedCr
             setNextFetch(10)
         }
     },[])
-
-    if(nextFetch===0){
-        setNextFetch(10)
-        fetch(getCriptoUpdateUrl(selectedCripto))
-        .then((resp) => resp.json())
-        .then((data)=>{
-            let updatedCryptoList = cryptoList.map((coin)=>{
-                if (coin.id !== selectedCripto) return coin
-                
-                return {...coin, currentPrice: data[coin.id].gbp, lastUpdate: data[coin.id].last_updated_at}
+    
+    useEffect(()=>{
+        if(nextFetch===0){
+            setNextFetch(secondToUpdate)
+            fetch(getCriptoUpdateUrl(selectedCripto))
+            .then((resp) => resp.json())
+            .then((data)=>{
+                let updatedCryptoList = cryptoList.map((coin)=>{
+                    if (coin.id !== selectedCripto) return coin
+                    
+                    return {...coin, currentPrice: data[coin.id].gbp, lastUpdate: data[coin.id].last_updated_at}
+                })
+                setCryptoList(updatedCryptoList);
             })
-            setCryptoList(updatedCryptoList);
-        });
-    }
+        }
+    },[nextFetch])
+
+    
 
     return(
         <div className="main-detail__update">

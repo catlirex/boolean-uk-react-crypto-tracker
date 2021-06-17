@@ -37,12 +37,12 @@ button:hover {
   display: grid;
   grid-template:
     "header header" auto
-    "side main" 1fr / auto 1fr;
+    "side main" 1fr / 30vw 1fr;
 }
 
 .side-list {
   grid-area: side;
-  padding: 2rem 4rem;
+  padding: 2rem 2rem;
   overflow-y: auto;
   scrollbar-width: thin;
 }
