@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { CRIPTO_LIST } from "../constants";
 import SideListItem from "./SideListItem";
 

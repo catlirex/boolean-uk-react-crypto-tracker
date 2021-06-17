@@ -1,12 +1,7 @@
 import { useEffect, useState } from "react";
 import { getCriptoUpdateUrl } from "../constants";
 
-function UpdateSection({
-  selectedCripto,
-  cryptoList,
-  setCryptoList,
-  setSelectedCripto,
-}) {
+function UpdateSection({ selectedCripto, cryptoList, setCryptoList }) {
   const secondToUpdate = 10;
   const [nextFetch, setNextFetch] = useState(secondToUpdate);
   const [intervalId, setIntervalId] = useState(null);
@@ -18,10 +13,13 @@ function UpdateSection({
   };
 
   useEffect(() => {
+    setNextFetch(secondToUpdate);
+  }, [selectedCripto]);
+
+  useEffect(() => {
     setIntervalId(setInterval(down, 1000));
     return () => {
       clearInterval(intervalId);
-      setNextFetch(10);
     };
   }, []);
 

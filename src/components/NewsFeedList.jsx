@@ -14,7 +14,7 @@ function NewsFeedList() {
   return (
     <ul className="newsfeed">
       {newsFeeds.map((item, index) => (
-        <NewsCard key={index} newsItem={item} />
+        <NewsCard newsItem={item} key={index} index={index} />
       ))}
     </ul>
   );

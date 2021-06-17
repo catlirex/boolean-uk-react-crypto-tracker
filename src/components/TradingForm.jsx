@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 function replaceCoin(element, updatedElement) {
   if (element.id === updatedElement.id) return updatedElement;
