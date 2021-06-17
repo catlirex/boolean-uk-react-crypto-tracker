@@ -39,6 +39,7 @@ function App() {
       <main className="main-detail">
         {selectedMainView==="coinDetail"
           ? <MainSection
+          setLoginUser={setLoginUser}
           loginUser={loginUser}
           selectedCripto={selectedCripto}
           cryptoList={cryptoList}

@@ -1,5 +1,3 @@
-import HeaderLogin from "./HeaderLogin"
-
 function HeaderNoLogin ({setLoginUser}){
     function logIn(){
         fetch(`http://localhost:4000/user/${document.forms["sign-in"]["username"].value}`)
@@ -21,9 +19,9 @@ function HeaderNoLogin ({setLoginUser}){
 
       function signUp(){
           let newUser = {
-            id: document.forms["sign-up"]["username"].value,
+            id: document.forms["sign-up"]["newUsername"].value,
             name: document.forms["sign-up"]["name"].value,
-            password: document.forms["sign-up"]["password"].value,
+            password: document.forms["sign-up"]["newPassword"].value,
             accountBalance: Number(document.forms["sign-up"]["balance"].value),
             holdingCoins:[],
             pastTransactions:[]
@@ -60,8 +58,8 @@ function HeaderNoLogin ({setLoginUser}){
                 signUp()
             }}>
                 <h2>Fill in details to start trading now!</h2>
-            <input id="username" name="username" type="text" placeholder="Username" required/>
-            <input name="password" type="password" placeholder="Password" required/>
+            <input id="newUsername" name="newUsername" type="text" placeholder="Username" required/>
+            <input name="newPassword" type="password" placeholder="Password" required/>
             <input id="name" name="name" type="text" placeholder="Name" required/>
             <input name="balance" type="number" placeholder="Initial balance" required/>
             <button>Create Account</button>

@@ -3,9 +3,8 @@ function HeaderLogin ({loginUser, setLoginUser,setSelectedMainView}){
     return(
     <header>
       <h1>{name}</h1>
-      <p>Account Balance £{accountBalance}</p>
+      <p>Account Balance £{accountBalance.toFixed(4)}</p>
       <button onClick={()=>setSelectedMainView("myCoins")}>Show my coins</button>
-      <button onClick={()=>setSelectedMainView("myTransactions")}>Show past transactions</button>
       <button onClick={()=>setLoginUser(null)}>Log out</button>
     </header>
     )

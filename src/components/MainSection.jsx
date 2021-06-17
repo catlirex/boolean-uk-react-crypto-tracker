@@ -3,9 +3,9 @@ import { useEffect, useState } from "react"
 import UpdateSection from "./UpdateSection"
 import TradingForm from "./TradingForm"
 
-function currentTime() {
-    return Math.round(Date.now() / 1000);
-  }
+function getCurrentTime() {
+  return Math.round(Date.now() / 1000)
+}
 
 function convertToSeconds(dateValue) {
     // This guard is needed due to the API discrepancies in handling dates
@@ -14,25 +14,22 @@ function convertToSeconds(dateValue) {
       : dateValue;
   }  
 
-function MainSection ({loginUser, selectedCripto, cryptoList, setCryptoList, setSelectedCripto}){
+function MainSection ({loginUser, selectedCripto, cryptoList, setCryptoList, setSelectedCripto, setLoginUser}){
     
     let selectedCriptoDetail = cryptoList.find(coin=> selectedCripto === coin.id)
-    const [updateTime, setUpdateTime] = useState(0)
+    const [currentTime, setCurrentTime] = useState(getCurrentTime())
 
-    const up = () => {
-        setUpdateTime(timeOnPageFromReact => {
-          return timeOnPageFromReact + 1
-        })
-      }
+    const updatedTimeAgo = currentTime - convertToSeconds(selectedCriptoDetail.lastUpdate)
+
 
     useEffect(()=>{
-        let current = currentTime()
-        let convertedUpdateTime = convertToSeconds(selectedCriptoDetail.lastUpdate)
-        let updateSecond = (current-convertedUpdateTime)
-        setUpdateTime(updateSecond)
-        const intervalId = setInterval(up, 1000)
-        return () => clearInterval(intervalId)
-    }, [selectedCripto])
+      console.log('MainDetail is mounting')
+      const intervalId = setInterval(() => setCurrentTime(getCurrentTime()), 1000)
+      return () => {
+        console.log('MainDetail is unmounting!')
+        clearInterval(intervalId)
+      }
+    }, [])
         
 
     return (
@@ -50,9 +47,10 @@ function MainSection ({loginUser, selectedCripto, cryptoList, setCryptoList, set
             </div>
             <div className="main-detail__price">
                 <p>£{selectedCriptoDetail.currentPrice}</p>
-                <p>Updated {updateTime} seconds ago</p>
+                <p>Updated {updatedTimeAgo} seconds ago</p>
 
             <TradingForm
+            setLoginUser={setLoginUser}
             selectedCripto={selectedCripto}
             loginUser={loginUser}
             currentPrice={selectedCriptoDetail.currentPrice}/>

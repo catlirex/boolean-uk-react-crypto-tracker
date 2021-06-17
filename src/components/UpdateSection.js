@@ -17,7 +17,7 @@ function UpdateSection({selectedCripto, cryptoList, setCryptoList, setSelectedCr
              clearInterval(intervalId)
             setNextFetch(10)
         }
-    },[selectedCripto])
+    },[])
 
     if(nextFetch===0){
         setNextFetch(10)

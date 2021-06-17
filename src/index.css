@@ -138,6 +138,7 @@ header {
 
 .sign-up-container {
   position: relative;
+  justify-self: left;
 }
 
 .sign-up-form {
