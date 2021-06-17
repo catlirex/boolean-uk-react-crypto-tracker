@@ -42,7 +42,7 @@ button:hover {
 
 .side-list {
   grid-area: side;
-  padding: 2rem 2rem;
+  padding: 2rem 2yrem;
   overflow-y: auto;
   scrollbar-width: thin;
 }

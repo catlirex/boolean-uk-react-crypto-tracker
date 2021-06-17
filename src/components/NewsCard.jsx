@@ -10,9 +10,10 @@ export default function NewsCard({ newsItem: { description } }) {
   return (
     <article className="newsfeed__card">
       <p>
-        {description.substring(0, 200)
+        {description
+          .substring(0, 200)
           .split(/(https?:\/\/.*\b\/?)/g)
-          .map(match =>
+          .map((match) =>
             /https?/.test(match) ? <NewsLink url={match} /> : match
           )}
       </p>
