@@ -9,18 +9,27 @@
         {
           "id": "bitcoin",
           "quantity": 1,
-          "buyInPrice": 27500
+          "avgBuyInPrice": 27500
         }
-      ],
-      "pastTransactions":[]
+      ]
     },
     {
       "id": "cat",
       "name": "Cath",
       "password": "111",
-      "accountBalance": 1000000,
-      "holdingCoins": [],
-      "pastTransactions":[]
+      "accountBalance": 998567.7073,
+      "holdingCoins": [
+        {
+          "id": "tether",
+          "quantity": 900,
+          "avgBuyInPrice": 0.716603
+        },
+        {
+          "id": "binancecoin",
+          "quantity": 5,
+          "avgBuyInPrice": 251.21
+        }
+      ]
     }
   ]
 }
