@@ -17,7 +17,7 @@
       "id": "cat",
       "name": "Cath",
       "password": "111",
-      "accountBalance": 936480.0687999999,
+      "accountBalance": 932761.9697999998,
       "holdingCoins": [
         {
           "id": "bitcoin",
@@ -36,8 +36,18 @@
         },
         {
           "id": "nano",
-          "quantity": 100,
-          "avgBuyInPrice": 4.36
+          "quantity": 300,
+          "avgBuyInPrice": 4.273333333333334
+        },
+        {
+          "id": "tether",
+          "quantity": 500,
+          "avgBuyInPrice": 0.719398
+        },
+        {
+          "id": "binancecoin",
+          "quantity": 10,
+          "avgBuyInPrice": 251.24
         }
       ]
     },
@@ -52,8 +62,14 @@
           "quantity": 10,
           "avgBuyInPrice": 28.66
         }
-      ],
-      "pastTransactions": []
+      ]
+    },
+    {
+      "id": "test1",
+      "name": "testing1",
+      "password": "111",
+      "accountBalance": 100,
+      "holdingCoins": []
     }
   ]
 }

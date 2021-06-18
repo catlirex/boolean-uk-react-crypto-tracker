@@ -1,18 +1,9 @@
 import { useState } from "react";
+import { patchUpdateUser, handleNumDecimal } from "../constants";
 
 function replaceCoin(element, updatedElement) {
   if (element.id === updatedElement.id) return updatedElement;
   return element;
-}
-
-function patchUpdateUser(loginUserId, updatedUser) {
-  return fetch(`http://localhost:4000/user/${loginUserId}`, {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(updatedUser),
-  }).then((response) => response.json());
 }
 
 function TradingForm({
@@ -37,9 +28,11 @@ function TradingForm({
     if (
       tradeAction === "sell" &&
       (userCurrentStock === undefined ||
-        userCurrentStock.quantity < document.forms["trade"]["quantity"].value)
+        userCurrentStock.quantity < tradeQuantity)
     )
       return alert("You don't have enough stock to sell.");
+
+    let updatedUser = {};
 
     if (tradeAction === "buy" && userCurrentStock === undefined) {
       let newCoinToAC = {
@@ -48,17 +41,11 @@ function TradingForm({
         avgBuyInPrice: currentPrice,
       };
 
-      let updatedUser = {
+      updatedUser = {
         ...loginUser,
         accountBalance: loginUser.accountBalance - tradeQuantity * currentPrice,
         holdingCoins: [...loginUser.holdingCoins, newCoinToAC],
       };
-      patchUpdateUser(loginUser.id, updatedUser).then((data) => {
-        setLoginUser(data);
-        e.target.reset();
-        setTradeQuantity(0);
-        setTradeAction(null);
-      });
     }
     if (tradeAction === "buy" && userCurrentStock !== undefined) {
       let updatedCoinToAC = {
@@ -69,35 +56,23 @@ function TradingForm({
             userCurrentStock.quantity * userCurrentStock.avgBuyInPrice) /
           (tradeQuantity + userCurrentStock.quantity),
       };
-      let updatedUser = {
+      updatedUser = {
         ...loginUser,
         accountBalance: loginUser.accountBalance - tradeQuantity * currentPrice,
         holdingCoins: loginUser.holdingCoins.map((coin) =>
           replaceCoin(coin, updatedCoinToAC)
         ),
       };
-      patchUpdateUser(loginUser.id, updatedUser).then((data) => {
-        setLoginUser(data);
-        e.target.reset();
-        setTradeQuantity(0);
-        setTradeAction(null);
-      });
     }
 
     if (tradeAction === "sell" && userCurrentStock.quantity === tradeQuantity) {
-      let updatedUser = {
+      updatedUser = {
         ...loginUser,
         accountBalance: loginUser.accountBalance + tradeQuantity * currentPrice,
         holdingCoins: loginUser.holdingCoins.filter(
           (coin) => coin.id !== selectedCripto
         ),
       };
-      patchUpdateUser(loginUser.id, updatedUser).then((data) => {
-        setLoginUser(data);
-        e.target.reset();
-        setTradeQuantity(0);
-        setTradeAction(null);
-      });
     }
 
     if (tradeAction === "sell" && userCurrentStock.quantity > tradeQuantity) {
@@ -105,20 +80,21 @@ function TradingForm({
         ...userCurrentStock,
         quantity: userCurrentStock.quantity - tradeQuantity,
       };
-      let updatedUser = {
+      updatedUser = {
         ...loginUser,
         accountBalance: loginUser.accountBalance + tradeQuantity * currentPrice,
         holdingCoins: loginUser.holdingCoins.map((coin) =>
           replaceCoin(coin, updatedCoinToAC)
         ),
       };
-      patchUpdateUser(loginUser.id, updatedUser).then((data) => {
-        setLoginUser(data);
-        e.target.reset();
-        setTradeQuantity(0);
-        setTradeAction(null);
-      });
     }
+
+    patchUpdateUser(loginUser.id, updatedUser).then((data) => {
+      setLoginUser(data);
+      e.target.reset();
+      setTradeQuantity(0);
+      setTradeAction(null);
+    });
   }
 
   return (
@@ -160,20 +136,22 @@ function TradingForm({
           onChange={(e) => setTradeQuantity(Number(e.target.value))}
         />
       </div>
-      <span>Trade Value: £ {tradeQuantity * currentPrice}</span>
+      <span>
+        Trade Value: £ {handleNumDecimal(tradeQuantity * currentPrice)}
+      </span>
 
       <span>
         A/C Balance: £{" "}
         {loginUser
           ? tradeAction === "buy"
-            ? (loginUser.accountBalance - tradeQuantity * currentPrice).toFixed(
-                4
+            ? handleNumDecimal(
+                loginUser.accountBalance - tradeQuantity * currentPrice
               )
             : tradeAction === "sell"
-            ? (loginUser.accountBalance + tradeQuantity * currentPrice).toFixed(
-                4
+            ? handleNumDecimal(
+                loginUser.accountBalance + tradeQuantity * currentPrice
               )
-            : loginUser.accountBalance.toFixed(4)
+            : handleNumDecimal(loginUser.accountBalance)
           : "Please login"}
       </span>
       <span>
@@ -192,10 +170,10 @@ function TradingForm({
         undefined ? (
           <span>
             Average Buy in price:{" "}
-            {
+            {handleNumDecimal(
               loginUser.holdingCoins.find((coin) => coin.id === selectedCripto)
                 .avgBuyInPrice
-            }
+            )}
           </span>
         ) : null
       ) : null}

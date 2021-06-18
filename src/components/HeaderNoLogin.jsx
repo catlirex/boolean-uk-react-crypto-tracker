@@ -1,17 +1,12 @@
+import { getUser, postUser } from "../constants";
+
 function HeaderNoLogin({ setLoginUser }) {
-  function logIn() {
-    fetch(
-      `http://localhost:4000/user/${document.forms["sign-in"]["username"].value}`
-    )
-      .then((response) => {
-        if (!response.ok) return alert("User not found");
-        return response.json();
-      })
-      .then((data) => {
-        if (data.password === document.forms["sign-in"]["password"].value)
-          setLoginUser(data);
-        else alert("Password incorrect");
-      });
+  function logIn(e) {
+    getUser(e.target.username.value).then((data) => {
+      if (data.password && data.password === e.target.password.value)
+        setLoginUser(data);
+      else alert("Username or Password incorrect");
+    });
   }
 
   function displaySignUpForm() {
@@ -20,28 +15,16 @@ function HeaderNoLogin({ setLoginUser }) {
       : (document.getElementById("sign-up").style.display = "grid");
   }
 
-  function signUp() {
+  function signUp(e) {
     let newUser = {
-      id: document.forms["sign-up"]["newUsername"].value,
-      name: document.forms["sign-up"]["name"].value,
-      password: document.forms["sign-up"]["newPassword"].value,
-      accountBalance: Number(document.forms["sign-up"]["balance"].value),
+      id: e.target.newUsername.value,
+      name: e.target.name.value,
+      password: e.target.newPassword.value,
+      accountBalance: Number(e.target.balance.value),
       holdingCoins: [],
-      pastTransactions: [],
     };
 
-    fetch(`http://localhost:4000/user/`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newUser),
-    })
-      .then((response) => {
-        if (!response.ok) return alert("Username existed");
-        return response.json();
-      })
-      .then((data) => setLoginUser(data));
+    postUser(newUser).then((data) => setLoginUser(data));
   }
 
   return (
@@ -50,7 +33,7 @@ function HeaderNoLogin({ setLoginUser }) {
         id="sign-in"
         onSubmit={(e) => {
           e.preventDefault();
-          logIn();
+          logIn(e);
         }}
       >
         <input
@@ -72,7 +55,7 @@ function HeaderNoLogin({ setLoginUser }) {
           className="sign-up-form"
           onSubmit={(e) => {
             e.preventDefault();
-            signUp();
+            signUp(e);
           }}
         >
           <h2>Fill in details to start trading now!</h2>

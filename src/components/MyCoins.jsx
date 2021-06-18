@@ -1,3 +1,5 @@
+import MyCoinItem from "./MyCoinItem";
+
 function MyCoins({
   loginUser,
   cryptoList,
@@ -25,27 +27,15 @@ function MyCoins({
         {loginUser.holdingCoins.length === 0 ? (
           <h2>You have no stock, start trading today!</h2>
         ) : (
-          loginUser.holdingCoins.map((coin) => {
-            let coinCurrentPrice = cryptoList.find(
-              (target) => target.id === coin.id
-            ).currentPrice;
-            return (
-              <li>
-                <span>{coin.id}</span>
-                <span>{coin.quantity}</span>
-                <span>{coin.avgBuyInPrice}</span>
-                <span>{coinCurrentPrice}</span>
-                <button
-                  onClick={() => {
-                    setSelectedMainView("coinDetail");
-                    setSelectedCripto(coin.id);
-                  }}
-                >
-                  Trade Now
-                </button>
-              </li>
-            );
-          })
+          loginUser.holdingCoins.map((coin) => (
+            <MyCoinItem
+              key={coin.id}
+              coin={coin}
+              cryptoList={cryptoList}
+              setSelectedMainView={setSelectedMainView}
+              setSelectedCripto={setSelectedCripto}
+            />
+          ))
         )}
       </ul>
     </main>
