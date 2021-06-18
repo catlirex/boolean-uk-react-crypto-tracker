@@ -1,18 +1,8 @@
 import { useEffect, useState } from "react";
+import { getCurrentTime, convertToSeconds } from "../constants";
 
 import UpdateSection from "./UpdateSection";
 import TradingForm from "./TradingForm";
-
-function getCurrentTime() {
-  return Math.round(Date.now() / 1000);
-}
-
-function convertToSeconds(dateValue) {
-  // This guard is needed due to the API discrepancies in handling dates
-  return typeof dateValue === "string"
-    ? Math.round(Date.parse(dateValue) / 1000)
-    : dateValue;
-}
 
 function MainSection({
   loginUser,

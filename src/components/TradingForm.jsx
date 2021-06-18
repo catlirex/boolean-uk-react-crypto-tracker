@@ -6,7 +6,7 @@ function replaceCoin(element, updatedElement) {
   return element;
 }
 
-function TradingForm({
+export default function TradingForm({
   currentPrice,
   loginUser,
   selectedCripto,
@@ -182,5 +182,3 @@ function TradingForm({
     </form>
   );
 }
-
-export default TradingForm;

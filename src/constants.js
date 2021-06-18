@@ -39,3 +39,14 @@ export function handleNumDecimal(num) {
   if (dec && dec.length > 4) return num.toFixed(4);
   else return num;
 }
+
+export function getCurrentTime() {
+  return Math.round(Date.now() / 1000);
+}
+
+export function convertToSeconds(dateValue) {
+  // This guard is needed due to the API discrepancies in handling dates
+  return typeof dateValue === "string"
+    ? Math.round(Date.parse(dateValue) / 1000)
+    : dateValue;
+}
